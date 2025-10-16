@@ -10,6 +10,8 @@ function fetchJSONData() {
             {const countries = Object.entries(data)
             const country = getRandomCountry(countries)
             const countryName = country[1].toLowerCase()
+            const countryCode = country[0]
+            displayCountryFlag(countryCode)
             console.log(countryName)
             submitBtn.addEventListener('click',()=>{checkAnswer(countryName)})
             
@@ -43,6 +45,14 @@ function getRandomCountry(countries){
     return countries[Math.floor((Math.random()*countries.length))]
 }
 
+
+function displayCountryFlag(countryCode){
+    let img = document.createElement("img");
+    img.src = `https://flagcdn.com/${countryCode}.svg`
+    let flag = document.querySelector("#flag")
+    flag.appendChild(img)
+}
+
 const submitBtn = document.querySelector(".submitBtn")
 const answer = document.querySelector(".answer")
 
@@ -52,4 +62,5 @@ function checkAnswer(countryName){
         console.log("you won!!!")
     }else(console.log("try again!!"))
 }
+
 
