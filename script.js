@@ -76,21 +76,32 @@ answer.value = ''
 
 function autoComplete(inputValue, options) {
     const filteredOptions = options.filter(opt => 
-        opt.slice(0, inputValue.length).toLowerCase() === inputValue.toLowerCase()
+        opt.toLowerCase().startsWith(inputValue.toLowerCase())
     );
     return filteredOptions;
 }
 
-function displayOptions(filteredOptions){
-    suggestions.innerHTML = '';
-    if(answer.value != ''){
+function displayOptions(filteredOptions) {
+  suggestions.innerHTML = '';
+  if (answer.value !== '') {
+    const query = answer.value.toLowerCase();
     filteredOptions.forEach(option => {
-    const word = document.createElement("div");
-    word.textContent = option 
-    suggestions.appendChild(word)
-    word.addEventListener('click',()=>{
-        answer.value = word.textContent;
-        suggestions.innerHTML = ''                                    
-    })
-})};
+      const div = document.createElement("div");
+      const lowerOpt = option.toLowerCase();
+      const index = lowerOpt.indexOf(query);
+      if (index !== -1) {
+        div.innerHTML =
+          option.substring(0, index) +
+          "<strong>" + option.substring(index, index + query.length) + "</strong>" +
+          option.substring(index + query.length);
+      } else {
+        div.textContent = option;
+      }
+      suggestions.appendChild(div);
+      div.addEventListener('click', () => {
+        answer.value = option;
+        suggestions.innerHTML = '';
+      });
+    });
+  }
 }
