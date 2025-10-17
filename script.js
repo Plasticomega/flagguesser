@@ -11,11 +11,17 @@ function fetchJSONData() {
             const country = getRandomCountry(countries)
             const countryName = country[1].toLowerCase()
             const countryCode = country[0]
+            const listOfCountries = countries.map(([code,name]) =>
+             name.toLowerCase()
+            );  
             displayCountryFlag(countryCode)
             console.log(countryName)
             submitBtn.addEventListener('click',()=>{checkAnswer(countryName)})
             
-        
+            answer.addEventListener('input', () => {
+                const filteredOptions = autoComplete(answer.value, listOfCountries);
+                displayOptions(filteredOptions)
+            });
         
         
         
@@ -64,3 +70,27 @@ function checkAnswer(countryName){
 }
 
 
+const suggestions = document.querySelector(".suggestions")
+answer.value = ''
+
+
+function autoComplete(inputValue, options) {
+    const filteredOptions = options.filter(opt => 
+        opt.slice(0, inputValue.length).toLowerCase() === inputValue.toLowerCase()
+    );
+    return filteredOptions;
+}
+
+function displayOptions(filteredOptions){
+    suggestions.innerHTML = '';
+    if(answer.value != ''){
+    filteredOptions.forEach(option => {
+    const word = document.createElement("div");
+    word.textContent = option 
+    suggestions.appendChild(word)
+    word.addEventListener('click',()=>{
+        answer.value = word.textContent;
+        suggestions.innerHTML = ''                                    
+    })
+})};
+}

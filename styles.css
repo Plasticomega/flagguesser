@@ -2,3 +2,34 @@
     max-height: 200px;
     width: auto;
 }
+
+.input-block {
+  position: relative;
+  display: inline-block;
+}
+
+.search {
+  width: 300px;
+  display: block;
+}
+
+.suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  max-height: 150px;
+  overflow-y: auto;
+  background-color: rgb(206,206,206);
+  border: 1px solid #aaa;
+  z-index: 1000;
+}
+
+.suggestions div {
+  padding: 5px;
+  cursor: pointer;
+}
+
+.suggestions div:hover {
+  background-color: rgb(153,153,153);
+}
