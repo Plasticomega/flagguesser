@@ -18,8 +18,10 @@ function fetchJSONData() {
 			console.log(countryName)
 			displayCountryFlag(countryCode)
 			submitBtn.addEventListener('click', () => {
-				checkAnswer(countryName);
-				fetchJSON();
+				fetchJSON().then(result => {
+					checkAnswer(countryName, result[0], result[1]);
+				})
+
 			})
 
 			answer.addEventListener('input', () => {
@@ -50,6 +52,7 @@ function fetchJSONData() {
 }
 fetchJSONData();
 
+let guess = 0;
 
 function getRandomCountry(countries) {
 	return countries[Math.floor((Math.random() * countries.length))]
@@ -90,9 +93,6 @@ function displayCountryFlag(countryCode) {
 		let randomcell = Math.floor(Math.random() * num);
 		grid[randomcell].hidden = true;
 		grid.splice(randomcell, 1)
-		console.log(num)
-		console.log(randomcell)
-		console.log(grid)
 	})
 
 	imgCover.classList.add('flag-cover')
@@ -106,7 +106,6 @@ function displayCountryFlag(countryCode) {
 	flag.appendChild(imgCover);
 	flag.appendChild(img);
 }
-
 
 const submitBtn = document.querySelector(".submitBtn")
 const answer = document.querySelector(".answer")
@@ -158,7 +157,7 @@ function displayOptions(filteredOptions) {
 let foo = {}
 
 function fetchJSON() {
-	fetch('./countries.json')
+	return fetch('./countries.json')
 		.then(response => {
 			if (!response.ok) {
 				throw new Error(`HTTP error! Status: ${response.status}`);
@@ -170,9 +169,8 @@ function fetchJSON() {
 			let Guessedcountry = answer.value.toLowerCase()
 			let distance = calculateDistance(data[Destinationcountry].lat, data[Destinationcountry].lon, data[Guessedcountry].lat, data[Guessedcountry].lon)
 			let bearing = calculateBearing(data[Guessedcountry].lat, data[Guessedcountry].lon, data[Destinationcountry].lat, data[Destinationcountry].lon)
-			console.log(bearing)
 			let direction = bearingToCompass(bearing)
-			console.log(`distance between ${Destinationcountry} and ${Guessedcountry} is ${distance}kms in direction ${direction}`)
+			return [distance, direction]
 		}
 		)
 

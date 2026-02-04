@@ -24,7 +24,16 @@ body {
 	flex-direction: column;
 	align-items: center;
 	gap: 15px;
+	width: 32rem;
 }
+
+.answer-container {
+	display: flex;
+	width: 100%;
+	gap: 10px;
+}
+
+
 
 #flag {
 	position: relative;
@@ -33,8 +42,10 @@ body {
 
 #flag img {
 	height: 100%;
-	width: auto;
+	width: 32rem;
+	object-fit: cover;
 	z-index: 1;
+	display: block;
 }
 
 .flag-cover {
@@ -88,8 +99,13 @@ body {
 
 .input-block {
 	position: relative;
-	display: inline-block;
+	flex: 1;
 }
+
+.answer {
+	width: 100%;
+}
+
 
 .search {
 	width: 300px;
