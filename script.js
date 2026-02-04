@@ -110,11 +110,13 @@ function displayCountryFlag(countryCode) {
 const submitBtn = document.querySelector(".submitBtn")
 const answer = document.querySelector(".answer")
 
-function checkAnswer(countryName) {
+function checkAnswer(countryName, distance, direction) {
 	let currentAns = answer.value
 	if (currentAns === countryName) {
 		console.log("you won!!!")
 	} else (console.log("try again!!"))
+	console.log(distance)
+	console.log(direction)
 }
 
 
