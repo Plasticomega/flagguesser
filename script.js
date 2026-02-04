@@ -55,11 +55,47 @@ function getRandomCountry(countries) {
 	return countries[Math.floor((Math.random() * countries.length))]
 }
 
+
 function displayCountryFlag(countryCode) {
 	const flag = document.querySelector("#flag");
 	flag.innerHTML = "";
 
 	const img = new Image();
+	const imgCover = document.createElement('div')
+
+	const imgGrid1 = document.createElement('div');
+	const imgGrid2 = document.createElement('div');
+	const imgGrid3 = document.createElement('div');
+	const imgGrid4 = document.createElement('div');
+	const imgGrid5 = document.createElement('div');
+	const imgGrid6 = document.createElement('div');
+
+	imgCover.appendChild(imgGrid1)
+	imgCover.appendChild(imgGrid2)
+	imgCover.appendChild(imgGrid3)
+	imgCover.appendChild(imgGrid4)
+	imgCover.appendChild(imgGrid5)
+	imgCover.appendChild(imgGrid6)
+
+	imgGrid1.classList.add("grid1")
+	imgGrid2.classList.add("grid2")
+	imgGrid3.classList.add("grid3")
+	imgGrid4.classList.add("grid4")
+	imgGrid5.classList.add("grid5")
+	imgGrid6.classList.add("grid6")
+
+	let grid = [imgGrid1, imgGrid2, imgGrid3, imgGrid4, imgGrid5, imgGrid6]
+	imgCover.addEventListener("click", () => {
+		let num = grid.length
+		let randomcell = Math.floor(Math.random() * num);
+		grid[randomcell].hidden = true;
+		grid.splice(randomcell, 1)
+		console.log(num)
+		console.log(randomcell)
+		console.log(grid)
+	})
+
+	imgCover.classList.add('flag-cover')
 	img.style.opacity = 0;
 	img.src = `https://flagcdn.com/${countryCode}.svg`;
 
@@ -67,7 +103,7 @@ function displayCountryFlag(countryCode) {
 		img.style.transition = "opacity 0.3s ease-in-out";
 		img.style.opacity = 1;
 	};
-
+	flag.appendChild(imgCover);
 	flag.appendChild(img);
 }
 
