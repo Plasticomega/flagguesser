@@ -132,3 +132,9 @@ body {
 .suggestions div:hover {
 	background-color: rgb(153, 153, 153);
 }
+
+.guess-1 {
+	display: flex;
+	gap: 10px;
+
+}

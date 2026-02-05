@@ -115,8 +115,17 @@ function checkAnswer(countryName, distance, direction) {
 	if (currentAns === countryName) {
 		console.log("you won!!!")
 	} else (console.log("try again!!"))
-	console.log(distance)
-	console.log(direction)
+	const guess1 = document.querySelector('.guess-1')
+	const guess1name = document.createElement('div')
+	const guess1distance = document.createElement('div')
+	const guess1direction = document.createElement('div')
+	guess1.textContent = ""
+	guess1name.textContent = currentAns
+	guess1distance.textContent = distance
+	guess1direction.textContent = direction
+	guess1.appendChild(guess1name)
+	guess1.appendChild(guess1distance)
+	guess1.appendChild(guess1direction)
 }
 
 
