@@ -133,8 +133,29 @@ body {
 	background-color: rgb(153, 153, 153);
 }
 
-.guess-1 {
-	display: flex;
+.guess-1,
+.guess-2,
+.guess-3,
+.guess-4,
+.guess-5,
+.guess-6 {
 	gap: 10px;
+	width: 100%;
+	display: grid;
+	grid-template-columns: 1fr auto auto;
+	justify-items: center;
+}
 
+.guess-1>div,
+.guess-2>div,
+.guess-3>div,
+.guess-4>div,
+.guess-5>div,
+.guess-6>div {
+	border-radius: 10px;
+	border: solid #5e81ac 5px;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	background-color: #88c0d0;
 }
