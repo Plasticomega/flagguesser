@@ -1,3 +1,17 @@
+const MAX_GUESSES = 6;
+let currentGuess = 0;
+let gameOver = false;
+
+const guessBoxes = [
+	document.querySelector('.guess-1'),
+	document.querySelector('.guess-2'),
+	document.querySelector('.guess-3'),
+	document.querySelector('.guess-4'),
+	document.querySelector('.guess-5'),
+	document.querySelector('.guess-6')
+];
+
+
 function fetchJSONData() {
 	fetch('./flags.json')
 		.then(response => {
@@ -51,8 +65,6 @@ function fetchJSONData() {
 		.catch(error => console.error('Failed to fetch data:', error));
 }
 fetchJSONData();
-
-let guess = 0;
 
 function getRandomCountry(countries) {
 	return countries[Math.floor((Math.random() * countries.length))]
@@ -111,21 +123,43 @@ const submitBtn = document.querySelector(".submitBtn")
 const answer = document.querySelector(".answer")
 
 function checkAnswer(countryName, distance, direction) {
-	let currentAns = answer.value
-	if (currentAns === countryName) {
-		console.log("you won!!!")
-	} else (console.log("try again!!"))
-	const guess1 = document.querySelector('.guess-1')
-	const guess1name = document.createElement('div')
-	const guess1distance = document.createElement('div')
-	const guess1direction = document.createElement('div')
-	guess1.textContent = ""
-	guess1name.textContent = currentAns
-	guess1distance.textContent = distance
-	guess1direction.textContent = direction
-	guess1.appendChild(guess1name)
-	guess1.appendChild(guess1distance)
-	guess1.appendChild(guess1direction)
+	if (gameOver || currentGuess >= MAX_GUESSES) return;
+
+	const userGuess = answer.value.toLowerCase();
+	const box = guessBoxes[currentGuess];
+
+	box.innerHTML = "";
+
+	const nameDiv = document.createElement("div");
+	const distDiv = document.createElement("div");
+	const dirDiv = document.createElement("div");
+
+	nameDiv.textContent = userGuess;
+	distDiv.textContent = `${distance} km`;
+	dirDiv.textContent = direction;
+
+	box.appendChild(nameDiv);
+	box.appendChild(distDiv);
+	box.appendChild(dirDiv);
+
+	if (userGuess === countryName) {
+		gameOver = true;
+		alert("you guessed correctly !!!")
+		return;
+	}
+
+	currentGuess++;
+
+	if (currentGuess === MAX_GUESSES) {
+		gameOver = true;
+		alert(`Game Over! The country was ${countryName}`)
+		return;
+	}
+
+	guessBoxes[currentGuess].textContent = `Guess ${currentGuess + 1}/6`
+
+	answer.value = "";
+	suggestions.innerHTML = "";
 }
 
 
