@@ -144,7 +144,6 @@ body {
 	display: grid;
 	grid-template-columns: 1fr auto auto;
 	justify-items: center;
-	background-color: #5e81ac;
 }
 
 .guess-1>div,
